@@ -12,26 +12,48 @@ public class RulesTest {
     }
 
     public class RuleImpl1 implements Rule {
-        @Override
-        public boolean apply(Action action) {
-            return false;
-        }
 
         @Override
         public String description() {
             return "Rule implementation 1";
         }
-    }
 
-    public class RuleImpl2 implements Rule {
         @Override
-        public boolean apply(Action action) {
+        public boolean apply(GameBoardState current, GameBoardState next, Action action) {
             return false;
         }
 
         @Override
+        public String serialize() {
+            return null;
+        }
+
+        @Override
+        public Rule deserialize(String data) {
+            return null;
+        }
+    }
+
+    public class RuleImpl2 implements Rule {
+
+        @Override
         public String description() {
             return "Rule implementation 2";
+        }
+
+        @Override
+        public boolean apply(GameBoardState current, GameBoardState next, Action action) {
+            return false;
+        }
+
+        @Override
+        public String serialize() {
+            return null;
+        }
+
+        @Override
+        public Rule deserialize(String data) {
+            return null;
         }
     }
 }
