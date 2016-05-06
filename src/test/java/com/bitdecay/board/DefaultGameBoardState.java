@@ -1,5 +1,7 @@
 package com.bitdecay.board;
 
+import com.bitdecay.board.utils.GameBoardException;
+
 public class DefaultGameBoardState implements GameBoardState {
 
     @Override
@@ -8,7 +10,16 @@ public class DefaultGameBoardState implements GameBoardState {
     }
 
     @Override
-    public GameBoardState deserialize(String data) {
+    public DefaultGameBoardState deserialize(String data) {
         return null;
+    }
+
+    @Override
+    public Object clone(){
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new GameBoardException("This should never happen", e);
+        }
     }
 }

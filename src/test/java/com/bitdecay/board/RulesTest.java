@@ -9,6 +9,9 @@ public class RulesTest {
     public void testRulesConstructor(){
         Rules<DefaultGameBoardState> rules = new Rules<>(new RuleImpl1(), new RuleImpl2());
         Assert.assertEquals(rules.toString(), "[\n    Rule implementation 1, \n    Rule implementation 2\n]");
+
+        DefaultGameBoardState b = new DefaultGameBoardState();
+
     }
 
     public class RuleImpl1 implements Rule<DefaultGameBoardState> {
