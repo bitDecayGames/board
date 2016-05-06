@@ -4,7 +4,7 @@ import com.bitdecay.board.utils.Serializable;
 
 import java.util.Stack;
 
-public class GameBoardStates extends Stack<GameBoardState> implements Serializable<GameBoardStates> {
+public class GameBoardStates<T extends GameBoardState> extends Stack<T> implements Serializable<GameBoardStates> {
 
     @Override
     public String serialize() {

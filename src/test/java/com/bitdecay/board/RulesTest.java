@@ -7,11 +7,11 @@ public class RulesTest {
 
     @Test
     public void testRulesConstructor(){
-        Rules rules = new Rules(new RuleImpl1(), new RuleImpl2());
+        Rules<DefaultGameBoardState> rules = new Rules<>(new RuleImpl1(), new RuleImpl2());
         Assert.assertEquals(rules.toString(), "[\n    Rule implementation 1, \n    Rule implementation 2\n]");
     }
 
-    public class RuleImpl1 implements Rule {
+    public class RuleImpl1 implements Rule<DefaultGameBoardState> {
 
         @Override
         public String description() {
@@ -19,11 +19,6 @@ public class RulesTest {
         }
 
         @Override
-        public boolean apply(GameBoardState current, GameBoardState next, Action action) {
-            return false;
-        }
-
-        @Override
         public String serialize() {
             return null;
         }
@@ -32,9 +27,14 @@ public class RulesTest {
         public Rule deserialize(String data) {
             return null;
         }
+
+        @Override
+        public boolean apply(DefaultGameBoardState current, DefaultGameBoardState next, Action action) {
+            return false;
+        }
     }
 
-    public class RuleImpl2 implements Rule {
+    public class RuleImpl2 implements Rule<DefaultGameBoardState> {
 
         @Override
         public String description() {
@@ -42,11 +42,6 @@ public class RulesTest {
         }
 
         @Override
-        public boolean apply(GameBoardState current, GameBoardState next, Action action) {
-            return false;
-        }
-
-        @Override
         public String serialize() {
             return null;
         }
@@ -54,6 +49,11 @@ public class RulesTest {
         @Override
         public Rule deserialize(String data) {
             return null;
+        }
+
+        @Override
+        public boolean apply(DefaultGameBoardState current, DefaultGameBoardState next, Action action) {
+            return false;
         }
     }
 }

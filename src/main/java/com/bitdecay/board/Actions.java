@@ -5,7 +5,7 @@ import com.bitdecay.board.utils.Serializable;
 
 import java.util.PriorityQueue;
 
-public class Actions extends PriorityQueue<Action> implements Serializable<Actions> {
+public class Actions<T extends GameBoardState> extends PriorityQueue<Action> implements Serializable<Actions> {
     @Override
     public String serialize() {
         return null;

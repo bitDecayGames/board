@@ -2,15 +2,15 @@ package com.bitdecay.board;
 
 import com.bitdecay.board.utils.GameBoardException;
 
-public final class GameBoard {
-    private GameBoardState currentKeyFrameState;
-    private GameBoardStates keyframeStates = new GameBoardStates();
-    private GameBoardStates allStates = new GameBoardStates();
-    private Actions actions = new Actions();
-    private Rules rules;
-    private Conditions conditions;
+public final class GameBoard<T extends GameBoardState> {
+    private T currentKeyFrameState;
+    private GameBoardStates<T> keyframeStates = new GameBoardStates<T>();
+    private GameBoardStates<T> allStates = new GameBoardStates<T>();
+    private Actions<T> actions = new Actions<T>();
+    private Rules<T> rules;
+    private Conditions<T> conditions;
 
-    public GameBoard(GameBoardState currentState, Rules rules, Conditions conditions){
+    public GameBoard(T currentState, Rules<T> rules, Conditions<T> conditions){
         if (currentState == null) throw new GameBoardException("GameBoardState cannot be null");
         if (rules == null) throw new GameBoardException("Rules cannot be null");
         if (conditions == null) throw new GameBoardException("Conditions cannot be null");
@@ -22,7 +22,7 @@ public final class GameBoard {
         this.conditions = conditions;
     }
 
-    public GameBoard submitAction(Action action){
+    public GameBoard submitAction(Action<T> action){
         actions.add(action);
         return this;
     }
@@ -42,10 +42,10 @@ public final class GameBoard {
         boolean successful = true;
 
         while(actions.size() > 0){
-            Action a = actions.remove();
-            GameBoardState curState = allStates.peek();
-            GameBoardState nextState = a.apply(curState);
-            for (Rule r : rules){
+            Action<T> a = actions.remove();
+            T curState = allStates.peek();
+            T nextState = a.apply(curState);
+            for (Rule<T> r : rules){
                 if (!r.apply(curState, nextState, a)) {
                     successful = false;
                     break;
@@ -64,10 +64,10 @@ public final class GameBoard {
     }
 
     private void applyConditions(){
-        GameBoardState previousKeyFrameState = keyframeStates.peek();
+        T previousKeyFrameState = keyframeStates.peek();
         if (currentKeyFrameState == previousKeyFrameState) return;
-        for(Condition c : conditions) {
-            Action a = c.apply(previousKeyFrameState, currentKeyFrameState);
+        for(Condition<T> c : conditions) {
+            Action<T> a = c.apply(previousKeyFrameState, currentKeyFrameState);
             if (a != null) actions.add(a);
         }
     }
