@@ -5,8 +5,8 @@ import com.bitdecay.board.utils.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Conditions<T extends GameBoardState> extends ArrayList<Condition<T>> {
-    public Conditions(Condition<T>... conditions){
+public class Conditions<A extends GameBoardState> extends ArrayList<Condition<A, ?>> {
+    public Conditions(Condition<A, ?>... conditions){
         Collections.addAll(this, conditions);
     }
 

@@ -66,7 +66,7 @@ public final class GameBoard<T extends GameBoardState> {
     private void applyConditions(){
         T previousKeyFrameState = keyframeStates.peek();
         if (currentKeyFrameState == previousKeyFrameState) return;
-        for(Condition<T> c : conditions) {
+        for(Condition<T, ?> c : conditions) {
             Action<T> a = c.apply(previousKeyFrameState, currentKeyFrameState);
             if (a != null) actions.add(a);
         }
