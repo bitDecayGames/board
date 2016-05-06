@@ -5,9 +5,9 @@ import com.bitdecay.board.utils.GameBoardException;
 import com.bitdecay.board.utils.Serializable;
 
 public abstract class Condition<T extends GameBoardState> implements Serializable<Condition>, Describable {
-    private Action<T> action;
+    protected Action<T> action;
     protected Boolean recurring = false;
-    private Boolean occurred = false;
+    protected Boolean occurred = false;
 
     public Condition(Action<T> action){
         if (action == null) throw new GameBoardException("Action cannot be null on a condition");
