@@ -8,19 +8,19 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class Actions<T extends GameBoardState> implements Serializable<Actions>, Collection<T> {
-    private final List<T> queue = new ArrayList<>();
+public class Actions<T extends GameBoardState> implements Serializable<Actions>, Collection<Action<T>> {
+    private final List<Action<T>> queue = new ArrayList<>();
 
-    public void append(T element){
+    public void append(Action<T> element){
         this.queue.add(element);
     }
 
-    public T peek(){
+    public Action<T> peek(){
         if (this.queue.size() > 0) return this.queue.get(0);
         else return null;
     }
 
-    public T remove(){
+    public Action<T> remove(){
         if (this.queue.size() > 0) return this.queue.remove(0);
         else return null;
     }
@@ -56,7 +56,7 @@ public class Actions<T extends GameBoardState> implements Serializable<Actions>,
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Action<T>> iterator() {
         return this.queue.iterator();
     }
 
@@ -71,7 +71,7 @@ public class Actions<T extends GameBoardState> implements Serializable<Actions>,
     }
 
     @Override
-    public boolean add(T t) {
+    public boolean add(Action<T> t) {
         return this.queue.add(t);
     }
 
@@ -86,7 +86,7 @@ public class Actions<T extends GameBoardState> implements Serializable<Actions>,
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends Action<T>> c) {
         return this.queue.addAll(c);
     }
 
