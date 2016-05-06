@@ -22,6 +22,10 @@ public final class GameBoard<T extends GameBoardState> {
         this.conditions = conditions;
     }
 
+    public T currentState(){
+        return (T) currentKeyFrameState.clone();
+    }
+
     public GameBoard submitAction(Action<T> action){
         actions.add(action);
         return this;
