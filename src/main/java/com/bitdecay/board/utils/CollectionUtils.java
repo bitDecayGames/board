@@ -3,7 +3,10 @@ package com.bitdecay.board.utils;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class CollectionUtils {
+/**
+ * Helper classes for collections
+ */
+public final class CollectionUtils {
     private CollectionUtils(){}
 
     public static <T> String mkString(Collection<T> collection, String middle){

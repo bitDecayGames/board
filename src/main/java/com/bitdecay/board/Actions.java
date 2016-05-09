@@ -8,7 +8,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class Actions<T extends GameBoardState> implements Serializable<Actions>, Collection<Action<T>> {
+/**
+ * Simple queue of Actions
+ * @param <T> the type of GameBoardState that the Actions in the queue use
+ */
+public final class Actions<T extends GameBoardState> implements Serializable<Actions>, Collection<Action<T>> {
     private final List<Action<T>> queue = new ArrayList<>();
 
     public void append(Action<T> element){

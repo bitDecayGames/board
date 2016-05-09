@@ -4,6 +4,11 @@ import com.bitdecay.board.utils.Describable;
 import com.bitdecay.board.utils.GameBoardException;
 import com.bitdecay.board.utils.Serializable;
 
+/**
+ * A condition contains a check for a given state and then an action to apply when that check returns true
+ * @param <A> the GameBoardState that this condition handles
+ * @param <B> the Action that this condition applies
+ */
 public abstract class Condition<A extends GameBoardState, B extends Action<A>> implements Serializable<Condition>, Describable {
     protected B action;
     protected Boolean recurring = false;

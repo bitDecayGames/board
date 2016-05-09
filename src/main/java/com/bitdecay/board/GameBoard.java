@@ -2,6 +2,10 @@ package com.bitdecay.board;
 
 import com.bitdecay.board.utils.GameBoardException;
 
+/**
+ * This is the logic center for all the interactions between the various board classes
+ * @param <T> The GameBoardState that this GameBoard handles
+ */
 public final class GameBoard<T extends GameBoardState> {
     private T currentKeyFrameState;
     private GameBoardStates<T> keyframeStates = new GameBoardStates<T>();

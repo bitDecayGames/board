@@ -4,6 +4,10 @@ import com.bitdecay.board.utils.Describable;
 import com.bitdecay.board.utils.GameBoardException;
 import com.bitdecay.board.utils.Serializable;
 
+/**
+ * The actual things that a player can directly or indirectly DO in the game
+ * @param <T> describes the kind of GameBoardState that this action handles
+ */
 public abstract class Action<T extends GameBoardState> implements Serializable, Describable {
     public T apply(T previous) {
         T nextState = innerApply(previous);
