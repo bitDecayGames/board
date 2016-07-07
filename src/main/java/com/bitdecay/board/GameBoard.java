@@ -2,6 +2,9 @@ package com.bitdecay.board;
 
 import com.bitdecay.board.utils.GameBoardException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This is the logic center for all the interactions between the various board classes
  * @param <T> The GameBoardState that this GameBoard handles
@@ -13,6 +16,8 @@ public final class GameBoard<T extends GameBoardState> {
     private Actions<T> actions = new Actions<T>();
     private Rules<T> rules;
     private Conditions<T> conditions;
+    private List<RuleListener<T>> ruleListeners = new ArrayList<>();
+    private List<ActionListener<T>> actionListeners = new ArrayList<>();
 
     public GameBoard(T currentState, Rules<T> rules, Conditions<T> conditions){
         if (currentState == null) throw new GameBoardException("GameBoardState cannot be null");
@@ -30,12 +35,12 @@ public final class GameBoard<T extends GameBoardState> {
         return (T) currentKeyFrameState.clone();
     }
 
-    public GameBoard submitAction(Action<T> action){
+    public GameBoard<T> submitAction(Action<T> action){
         actions.add(action);
         return this;
     }
 
-    public GameBoard step(){
+    public GameBoard<T> step(){
         applyActions();
         currentKeyFrameState = allStates.peek();
         applyConditions();
@@ -54,14 +59,15 @@ public final class GameBoard<T extends GameBoardState> {
             T curState = allStates.peek();
             T nextState = a.apply(curState);
             for (Rule<T> r : rules){
-                if (!r.apply(curState, nextState, a)) {
-                    successful = false;
-                    break;
-                }
+                if (!r.apply(curState, nextState, a)) successful = false;
+                final boolean ruleSuccessFinal = successful;
+                ruleListeners.forEach(rl -> rl.ruleApplied(r, ruleSuccessFinal));
+                if (!successful) break;
             }
-            if (successful){
-                allStates.push(nextState);
-            } else {
+            final boolean successFinal = successful;
+            actionListeners.forEach(al -> al.actionApplied(a, successFinal));
+            if (successful) allStates.push(nextState);
+            else {
                 while(actions.size() > 0) actions.remove();
                 break;
             }
@@ -85,12 +91,32 @@ public final class GameBoard<T extends GameBoardState> {
         while(keyframeStates.peek() != currentKeyFrameState) keyframeStates.pop();
     }
 
-    public GameBoard undo(){
+    public GameBoard<T> undo(){
         if (keyframeStates.size() > 1){
             keyframeStates.pop();
             currentKeyFrameState = keyframeStates.peek();
             revertActions();
         }
+        return this;
+    }
+
+    public GameBoard<T> listenForRules(RuleListener<T> ruleListener){
+        ruleListeners.add(ruleListener);
+        return this;
+    }
+
+    public GameBoard<T> stopListeningForRules(RuleListener<T> ruleListener){
+        ruleListeners.remove(ruleListener);
+        return this;
+    }
+
+    public GameBoard<T> listenForActions(ActionListener<T> actionListener){
+        actionListeners.add(actionListener);
+        return this;
+    }
+
+    public GameBoard<T> stopListeningForActions(ActionListener<T> actionListener){
+        actionListeners.remove(actionListener);
         return this;
     }
 }
