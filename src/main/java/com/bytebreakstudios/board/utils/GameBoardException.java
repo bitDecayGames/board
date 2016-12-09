@@ -1,4 +1,4 @@
-package com.bitdecay.board.utils;
+package com.bytebreakstudios.board.utils;
 
 /**
  * A generic runtime exception that is thrown when something in the board library fails

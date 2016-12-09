@@ -1,4 +1,4 @@
-package com.bitdecay.board.utils;
+package com.bytebreakstudios.board.utils;
 
 /**
  * Should be able to serialize all of the data in this class to a string that can be deserialized back into the original data

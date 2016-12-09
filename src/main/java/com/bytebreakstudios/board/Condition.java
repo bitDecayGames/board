@@ -1,8 +1,8 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.Describable;
-import com.bitdecay.board.utils.GameBoardException;
-import com.bitdecay.board.utils.Serializable;
+import com.bytebreakstudios.board.utils.Describable;
+import com.bytebreakstudios.board.utils.GameBoardException;
+import com.bytebreakstudios.board.utils.Serializable;
 
 /**
  * A condition contains a check for a given state and then an action to apply when that check returns true

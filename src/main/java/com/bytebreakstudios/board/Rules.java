@@ -1,6 +1,6 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.CollectionUtils;
+import com.bytebreakstudios.board.utils.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

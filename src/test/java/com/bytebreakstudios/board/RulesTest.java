@@ -1,4 +1,4 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
 import org.junit.Assert;
 import org.junit.Test;

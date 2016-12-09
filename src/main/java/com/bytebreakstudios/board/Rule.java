@@ -1,7 +1,7 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.Describable;
-import com.bitdecay.board.utils.Serializable;
+import com.bytebreakstudios.board.utils.Describable;
+import com.bytebreakstudios.board.utils.Serializable;
 
 /**
  * The Rule class checks for invalid states.  With all of the proper rules, a GameBoardState can never enter into an invalid state.

@@ -1,6 +1,6 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.GameBoardException;
+import com.bytebreakstudios.board.utils.GameBoardException;
 
 import java.util.ArrayList;
 import java.util.List;

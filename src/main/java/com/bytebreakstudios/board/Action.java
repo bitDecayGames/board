@@ -1,8 +1,8 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.Describable;
-import com.bitdecay.board.utils.GameBoardException;
-import com.bitdecay.board.utils.Serializable;
+import com.bytebreakstudios.board.utils.Describable;
+import com.bytebreakstudios.board.utils.GameBoardException;
+import com.bytebreakstudios.board.utils.Serializable;
 
 /**
  * The actual things that a player can directly or indirectly DO in the game

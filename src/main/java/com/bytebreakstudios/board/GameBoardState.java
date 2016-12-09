@@ -1,6 +1,6 @@
-package com.bitdecay.board;
+package com.bytebreakstudios.board;
 
-import com.bitdecay.board.utils.Serializable;
+import com.bytebreakstudios.board.utils.Serializable;
 
 /**
  * This is a mostly empty interface that is meant to contain all of the state for the game
