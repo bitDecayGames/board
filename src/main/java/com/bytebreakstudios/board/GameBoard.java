@@ -40,14 +40,17 @@ public final class GameBoard<T extends GameBoardState> {
         return this;
     }
 
-    public GameBoard<T> step(){
+    public boolean step(){
         applyActions();
         currentKeyFrameState = allStates.peek();
         applyConditions();
         applyActions();
         currentKeyFrameState = allStates.peek();
-        if (currentKeyFrameState != keyframeStates.peek()) keyframeStates.push(currentKeyFrameState);
-        return this;
+        if (currentKeyFrameState != keyframeStates.peek()) {
+            keyframeStates.push(currentKeyFrameState);
+            return true;
+        }
+        else return false;
     }
 
     private void applyActions(){
