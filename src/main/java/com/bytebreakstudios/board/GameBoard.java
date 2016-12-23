@@ -103,6 +103,10 @@ public final class GameBoard<T extends GameBoardState> {
         return this;
     }
 
+    public int numberOfKeyStates(){
+        return keyframeStates.size();
+    }
+
     public GameBoard<T> listenForRules(RuleListener<T> ruleListener){
         ruleListeners.add(ruleListener);
         return this;
