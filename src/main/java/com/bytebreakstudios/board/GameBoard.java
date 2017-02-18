@@ -1,6 +1,7 @@
 package com.bytebreakstudios.board;
 
 import com.bytebreakstudios.board.utils.GameBoardException;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * @param <T> The GameBoardState that this GameBoard handles
  */
 public final class GameBoard<T extends GameBoardState> {
+    private Logger log = Logger.getLogger("GameBoard");
     private T currentKeyFrameState;
     private GameBoardStates<T> keyframeStates = new GameBoardStates<T>();
     private GameBoardStates<T> allStates = new GameBoardStates<T>();
@@ -60,12 +62,24 @@ public final class GameBoard<T extends GameBoardState> {
         while(actions.size() > 0){
             Action<T> a = actions.remove();
             T curState = allStates.peek();
+            try{
+                log.info(a.description());
+            } catch (Exception e){
+                log.warn(a.getClass().getSimpleName() + ".description() threw " + e);
+            }
             T nextState = a.apply(curState);
             for (Rule<T> r : rules){
                 if (!r.apply(curState, nextState, a)) successful = false;
                 final boolean ruleSuccessFinal = successful;
                 ruleListeners.forEach(rl -> rl.ruleApplied(r, ruleSuccessFinal));
-                if (!successful) break;
+                if (!successful) {
+                    try{
+                        log.info(r.description());
+                    } catch (Exception e){
+                        log.warn(r.getClass().getSimpleName() + ".desctiption() threw " + e);
+                    }
+                    break;
+                }
             }
             final boolean successFinal = successful;
             actionListeners.forEach(al -> al.actionApplied(a, successFinal));
@@ -85,7 +99,14 @@ public final class GameBoard<T extends GameBoardState> {
         if (currentKeyFrameState == previousKeyFrameState) return;
         for(Condition<T, ?> c : conditions) {
             Action<T> a = c.apply(previousKeyFrameState, currentKeyFrameState);
-            if (a != null) actions.add(a);
+            if (a != null) {
+                try{
+                    log.info(c.description());
+                } catch (Exception e){
+                    log.warn(c.getClass().getSimpleName() + ".description() threw " + e);
+                }
+                actions.add(a);
+            }
         }
     }
 
